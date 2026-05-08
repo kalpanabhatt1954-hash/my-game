@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#120f1a">
+    <meta property="og:title" content="XO Nexus">
+    <meta property="og:description" content="A polished 3D Tic Tac Toe game with leaderboards, missions, and rewards.">
+    <meta property="og:image" content="assets/thumbnail.svg">
+    <title>XO Nexus</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+    <main class="app" aria-labelledby="game-title">
+      <section class="stage">
+        <aside class="hero-panel" aria-label="Game preview">
+          <div class="brand-lockup">
+            <span class="brand-mark">XO</span>
+            <span>XO Nexus</span>
+          </div>
+
+          <div class="preview-rig" aria-hidden="true">
+            <div class="preview-board">
+              <span class="preview-piece preview-x top-left"></span>
+              <span class="preview-piece preview-o center"></span>
+              <span class="preview-piece preview-x bottom-right"></span>
+              <span class="preview-piece preview-o bottom-left"></span>
+            </div>
+          </div>
+
+          <div class="hero-copy">
+            <p class="eyebrow">Perfect-play AI</p>
+            <h1 id="game-title">XO Nexus</h1>
+            <p class="subcopy">A neon strategy arena with daily missions, coin rewards, and a leaderboard climb.</p>
+          </div>
+        </aside>
+
+        <section class="game-shell" aria-label="Playable game">
+          <div class="topbar">
+            <div>
+              <p class="eyebrow">Match control</p>
+              <h2>Classic 3x3</h2>
+            </div>
+            <button class="icon-button" id="new-game" type="button" aria-label="Start new match" title="Start new match">
+              <span aria-hidden="true">R</span>
+            </button>
+          </div>
+
+          <div class="wallet-strip" aria-label="Player progress">
+            <div class="wallet-card">
+              <span>Coins</span>
+              <strong id="coin-count">0</strong>
+            </div>
+            <div class="wallet-card">
+              <span>XP</span>
+              <strong id="xp-count">0</strong>
+            </div>
+            <div class="wallet-card">
+              <span>Level</span>
+              <strong id="level-label">1/100</strong>
+            </div>
+          </div>
+
+          <div class="mode-panel" aria-label="Game settings">
+            <div class="segmented" role="group" aria-label="Choose game mode">
+              <button class="segment active" type="button" data-mode="ai">Vs AI</button>
+              <button class="segment" type="button" data-mode="human">2 Players</button>
+              <button class="segment" type="button" data-mode="online">Online</button>
+            </div>
+            <div class="turn-card" aria-live="polite">
+              <span class="turn-label">Turn</span>
+              <strong id="turn-display">You - X</strong>
+            </div>
+          </div>
+
+          <div class="online-panel" id="online-panel" aria-label="Online friend and opponent controls">
+            <div class="profile-row">
+              <input id="player-name" type="text" maxlength="18" aria-label="Your online name">
+              <input id="player-region" type="text" maxlength="28" aria-label="Your country or state">
+            </div>
+            <div class="online-status">
+              <span class="live-dot" aria-hidden="true"></span>
+              <div>
+                <span>Online lobby</span>
+                <strong id="online-opponent">Tap Matchmake</strong>
+              </div>
+            </div>
+            <div class="online-actions">
+              <button id="matchmake" type="button">Matchmake</button>
+              <button id="create-room" type="button">Create room</button>
+            </div>
+            <div class="room-row">
+              <code id="room-code">NO ROOM</code>
+              <input id="join-code" type="text" maxlength="6" placeholder="Room code" aria-label="Friend room code">
+              <button id="join-room" type="button">Join</button>
+            </div>
+          </div>
+
+          <div class="scoreboard" aria-label="Scoreboard">
+            <div class="score score-x">
+              <span id="x-label">You</span>
+              <strong id="x-score">0</strong>
+            </div>
+            <div class="score score-draw">
+              <span>Draws</span>
+              <strong id="draw-score">0</strong>
+            </div>
+            <div class="score score-o">
+              <span id="o-label">AI</span>
+              <strong id="o-score">0</strong>
+            </div>
+          </div>
+
+          <div class="board-scene">
+            <div class="board" id="board" role="grid" aria-label="Tic tac toe board">
+              <button class="cell" type="button" role="gridcell" aria-label="Row 1 column 1" data-cell="0"></button>
+              <button class="cell" type="button" role="gridcell" aria-label="Row 1 column 2" data-cell="1"></button>
+              <button class="cell" type="button" role="gridcell" aria-label="Row 1 column 3" data-cell="2"></button>
+              <button class="cell" type="button" role="gridcell" aria-label="Row 2 column 1" data-cell="3"></button>
+              <button class="cell" type="button" role="gridcell" aria-label="Row 2 column 2" data-cell="4"></button>
+              <button class="cell" type="button" role="gridcell" aria-label="Row 2 column 3" data-cell="5"></button>
+              <button class="cell" type="button" role="gridcell" aria-label="Row 3 column 1" data-cell="6"></button>
+              <button class="cell" type="button" role="gridcell" aria-label="Row 3 column 2" data-cell="7"></button>
+              <button class="cell" type="button" role="gridcell" aria-label="Row 3 column 3" data-cell="8"></button>
+            </div>
+          </div>
+
+          <div class="status-row">
+            <p id="status">Your move. Take the center if you can.</p>
+            <button id="next-round" type="button">Next round</button>
+          </div>
+        </section>
+
+        <section class="progress-shell" aria-label="Rewards and leaderboard">
+          <div class="reward-panel">
+            <div>
+              <p class="eyebrow">Daily login</p>
+              <h2>5-day streak</h2>
+            </div>
+            <button id="claim-login" type="button">Claim</button>
+          </div>
+
+          <div class="streak-track" id="streak-track" aria-label="Daily login reward track"></div>
+
+          <article class="boss-panel">
+            <div>
+              <p class="eyebrow">Boss challenge</p>
+              <h2 id="boss-title">Beat AI Master</h2>
+              <p id="boss-copy">Win against the AI and claim 1000 XP. The Master is strong, but not impossible.</p>
+            </div>
+            <div class="boss-meter">
+              <span>Pressure</span>
+              <strong id="boss-pressure">0/100</strong>
+            </div>
+          </article>
+
+          <div class="panel-grid">
+            <article class="mission-panel">
+              <div class="panel-heading">
+                <p class="eyebrow">Daily missions</p>
+                <span id="mission-reset">Resets today</span>
+              </div>
+              <div class="mission-list" id="mission-list"></div>
+            </article>
+
+            <article class="leaderboard-panel">
+              <div class="panel-heading">
+                <p class="eyebrow">Leaderboard</p>
+                <span>Local league</span>
+              </div>
+              <ol class="leaderboard" id="leaderboard"></ol>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

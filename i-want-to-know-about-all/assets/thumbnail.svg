@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="XO Nexus thumbnail">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#120f1a"/>
+      <stop offset="0.48" stop-color="#23182b"/>
+      <stop offset="1" stop-color="#171019"/>
+    </linearGradient>
+    <linearGradient id="tile" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#3b334c"/>
+      <stop offset="1" stop-color="#17131f"/>
+    </linearGradient>
+    <linearGradient id="xg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#b7fff8"/>
+      <stop offset="0.56" stop-color="#43d6c9"/>
+      <stop offset="1" stop-color="#128b90"/>
+    </linearGradient>
+    <linearGradient id="og" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffd5cc"/>
+      <stop offset="0.48" stop-color="#ff7a62"/>
+      <stop offset="1" stop-color="#b8324d"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <path d="M0 85h1200M0 205h1200M0 325h1200M0 445h1200M0 565h1200M90 0v630M250 0v630M410 0v630M570 0v630M730 0v630M890 0v630M1050 0v630" stroke="#fff8e8" stroke-opacity=".045" stroke-width="2"/>
+  <path d="M800 96 1032 216 728 418 492 278Z" fill="#050408" opacity=".34"/>
+  <g transform="translate(610 95) skewY(-12) rotate(7 210 210)">
+    <rect x="0" y="0" width="420" height="420" rx="18" fill="#0b0910"/>
+    <rect x="-20" y="-28" width="420" height="420" rx="18" fill="url(#tile)" stroke="#fff8e8" stroke-opacity=".18" stroke-width="3"/>
+    <path d="M120-22v410M260-22v410M-14 112h410M-14 252h410" stroke="#fff8e8" stroke-opacity=".32" stroke-width="13" stroke-linecap="round"/>
+    <g filter="url(#glow)" transform="translate(22 8)">
+      <path d="M28 20 100 92M100 20 28 92" stroke="url(#xg)" stroke-width="24" stroke-linecap="round"/>
+      <path d="M288 282 360 354M360 282 288 354" stroke="url(#xg)" stroke-width="24" stroke-linecap="round"/>
+      <circle cx="204" cy="192" r="42" fill="none" stroke="url(#og)" stroke-width="22"/>
+      <circle cx="64" cy="332" r="42" fill="none" stroke="url(#og)" stroke-width="22"/>
+    </g>
+  </g>
+  <g transform="translate(86 124)">
+    <text x="0" y="0" fill="#9df2b1" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="900" letter-spacing="4">PERFECT-PLAY AI</text>
+    <text x="0" y="122" fill="#fff8e8" font-family="Inter, Arial, sans-serif" font-size="104" font-weight="900">XO Nexus</text>
+    <text x="4" y="202" fill="#b9b0c7" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">3D board. Daily missions. Unbeatable engine.</text>
+  </g>
+  <rect x="88" y="500" width="240" height="62" rx="12" fill="#ffd166"/>
+  <text x="128" y="541" fill="#171019" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900">PLAY NOW</text>
+</svg>
