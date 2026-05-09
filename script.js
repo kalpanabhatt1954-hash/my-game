@@ -799,15 +799,62 @@ function startAmbientCanvas() {
   window.addEventListener("resize", resize);
   draw();
 }
-
-cells.forEach((cell) => cell.addEventListener("click", handleCellClick));
-nextRoundButton.addEventListener("click", () => {
-  if (mode === "online" && onlineSession.roomId) {
-    requestOnlineRound();
-    return;
-  }
-  startRound(true);
+cells.forEach((cell) => {
+  cell.addEventListener("click", handleCellClick);
 });
+
+if (nextRoundButton) {
+  nextRoundButton.addEventListener("click", () => {
+    if (mode === "online" && onlineSession.roomId) {
+      requestOnlineRound();
+      return;
+    }
+    startRound(true);
+  });
+}
+
+if (newGameButton) {
+  newGameButton.addEventListener("click", () => {
+    if (mode === "online" && onlineSession.roomId) {
+      requestOnlineRound();
+      return;
+    }
+    startRound(false);
+  });
+}
+
+if (claimLoginButton) {
+  claimLoginButton.addEventListener("click", claimLoginReward);
+}
+
+if (matchmakeButton) {
+  matchmakeButton.addEventListener("click", matchmakeOnline);
+}
+
+if (createRoomButton) {
+  createRoomButton.addEventListener("click", createFriendRoom);
+}
+
+if (joinRoomButton) {
+  joinRoomButton.addEventListener("click", joinFriendRoom);
+}
+
+if (playerNameInput) {
+  playerNameInput.addEventListener("change", getPlayerProfile);
+}
+
+if (playerRegionInput) {
+  playerRegionInput.addEventListener("change", getPlayerProfile);
+}
+
+modeButtons.forEach((button) => {
+  button.addEventListener("click", () => setMode(button.dataset.mode));
+});
+
+loadPlayerProfile();
+setMode("ai");
+startAmbientCanvas();
+
 newGameButton.addEventListener("click", () => {
   if (mode === "online" && onlineSession.roomId) {
     requestOnlineRound();
