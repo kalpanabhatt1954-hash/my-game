@@ -470,7 +470,7 @@ function startRound(keepScores = true) {
   currentPlayer = "X";
   roundOver = false;
   clearWinningCells();
-  statusText.textContent = mode === "ai"
+  if (statusText) statusText.textContent  = mode === "ai"
     ? "Your move. Take the center if you can."
     : mode === "online" ? onlineSession.connected ? `Online match ready against ${getOpponentLabel()}.` : "Tap Matchmake or create a friend room to start real online play."
       : "Player X starts.";
