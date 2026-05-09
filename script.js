@@ -799,16 +799,12 @@ function startAmbientCanvas() {
   window.addEventListener("resize", resize);
   draw();
 }
-cells.forEach((cell) => {
+  cells.forEach((cell) => {
   cell.addEventListener("click", handleCellClick);
 });
-function safeListen(element, event, callback) {
-  if (element) {
-    element.addEventListener(event, callback);
-  }
-}
+
 if (nextRoundButton) {
-  safeListen(nextRoundButton, "click", () => 
+  nextRoundButton.addEventListener("click", () => {
     if (mode === "online" && onlineSession.roomId) {
       requestOnlineRound();
       return;
@@ -816,13 +812,9 @@ if (nextRoundButton) {
     startRound(true);
   });
 }
-function safeListen(element, event, callback) {
-  if (element) {
-    element.addEventListener(event, callback);
-  }
-}
+
 if (newGameButton) {
-  safeListen(newgamebutton, "click", () => {
+  newGameButton.addEventListener("click", () => {
     if (mode === "online" && onlineSession.roomId) {
       requestOnlineRound();
       return;
@@ -830,70 +822,42 @@ if (newGameButton) {
     startRound(false);
   });
 }
-function safeListen(element, event, callback) {
-  if (element) {
-    element.addEventListener(event, callback);
-  }
-}
+
 if (claimLoginButton) {
-  safeListen(claimloginbutton, "click", () => {
+  claimLoginButton.addEventListener("click", claimLoginReward);
 }
-function safeListen(element, event, callback) {
-  if (element) {
-    element.addEventListener(event, callback);
-  }
-}
+
 if (matchmakeButton) {
-  safeListen(matchmakebutton, "click", () => {
+  matchmakeButton.addEventListener("click", matchmakeOnline);
 }
-function safeListen(element, event, callback) {
-  if (element) {
-    element.addEventListener(event, callback);
-  }
-}
+
 if (createRoomButton) {
- safeListen(createroombutton, "click", () => {
+  createRoomButton.addEventListener("click", createFriendRoom);
 }
-function safeListen(element, event, callback) {
-  if (element) {
-    element.addEventListener(event, callback);
-  }
-}
+
 if (joinRoomButton) {
- safeListen(joinroombutton, "click", () => {
+  joinRoomButton.addEventListener("click", joinFriendRoom);
 }
-function safeListen(element, event, callback) {
-  if (element) {
-    element.addEventListener(event, callback);
-  }
-}
+
 if (playerNameInput) {
-  safeListen(playernameinput, "click", () => {
+  playerNameInput.addEventListener("change", getPlayerProfile);
 }
-function safeListen(element, event, callback) {
-  if (element) {
-    element.addEventListener(event, callback);
-  }
-}
+
 if (playerRegionInput) {
- safeListen(playerregioninput, "click", () => {
+  playerRegionInput.addEventListener("change", getPlayerProfile);
 }
 
 modeButtons.forEach((button) => {
-  button.addEventListener("click", () => setMode(button.dataset.mode));
+  button.addEventListener("click", () => {
+    setMode(button.dataset.mode);
+  });
 });
 
 loadPlayerProfile();
 setMode("ai");
 startAmbientCanvas();
 
-newGameButton.addEventListener("click", () => {
-  if (mode === "online" && onlineSession.roomId) {
-    requestOnlineRound();
-    return;
-  }
-  startRound(false);
-});
+console.log("XO Nexus loaded");
 claimLoginButton.addEventListener("click", claimLoginReward);
 matchmakeButton.addEventListener("click", matchmakeOnline);
 createRoomButton.addEventListener("click", createFriendRoom);
