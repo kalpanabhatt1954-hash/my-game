@@ -480,19 +480,36 @@ function startRound(keepScores = true) {
   }
 
   render();
+if (xScore) xScore.textContent = scores.X;
+if (oScore) oScore.textContent = scores.O;
+if (drawScore) drawScore.textContent = scores.draw;
+
+if (xLabel) {
+  xLabel.textContent =
+    mode === "online" && onlineSession.symbol === "O"
+      ? getOpponentLabel()
+      : ["ai", "online"].includes(mode)
+      ? "You"
+      : "Player X";
 }
 
-function setMode(nextMode) {
-  mode = nextMode;
-  modeButtons.forEach((button) => {
-    const isActive = button.dataset.mode === mode;
-    button.classList.toggle("active", isActive);
-    button.setAttribute("aria-pressed", String(isActive));
-  });
-  startRound(false);
-  if (mode === "online" && !isHttpApp()) {
-    statusText.textContent = "Online needs the Node server. Start it, then open http://localhost:3000.";
-  }
+if (oLabel) {
+  oLabel.textContent =
+    mode === "online" && onlineSession.symbol === "O"
+      ? "You"
+      : getOpponentLabel();
+}
+
+if (turnDisplay) {
+  turnDisplay.textContent = getTurnText();
+}
+
+if (onlinePanel) {
+  onlinePanel.classList.toggle("active", mode === "online");
+}
+
+if (onlineOpponentLabel) {
+  onlineOpponentLabel.textContent = getOnlineStatus();
 }
 
 function getOpponentLabel() {
