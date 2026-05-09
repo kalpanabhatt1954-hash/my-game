@@ -291,37 +291,83 @@ function playMove(index, player) {
       : `Player ${currentPlayer}, choose a square.`;
   }
 
-  render();
+ function render() {
+  cells.forEach((cell, index) => {
+    const value = board[index];
+
+    cell.replaceChildren();
+
+    if (value) {
+      const piece = document.createElement("span");
+      piece.className = `piece ${value.toLowerCase()}`;
+      piece.setAttribute("aria-hidden", "true");
+      cell.append(piece);
+    }
+
+    cell.classList.toggle("x", value === "X");
+    cell.classList.toggle("o", value === "O");
+
+    const onlineNotReady =
+      mode === "online" && !onlineSession.connected;
+
+    const waitingForRemote =
+      mode === "online" &&
+      onlineSession.connected &&
+      currentPlayer !== onlineSession.symbol;
+
+    const localOpponentTurn =
+      mode === "online" &&
+      !onlineSession.connected &&
+      currentPlayer === "O";
+
+    cell.disabled =
+      Boolean(value) ||
+      roundOver ||
+      onlineNotReady ||
+      (mode === "ai" && currentPlayer === "O") ||
+      waitingForRemote ||
+      localOpponentTurn;
+
+    cell.setAttribute(
+      "aria-label",
+      `${cellLabel(index)} ${value || "empty"}`
+    );
+  });
+
+  if (xScore) xScore.textContent = scores.X;
+  if (oScore) oScore.textContent = scores.O;
+  if (drawScore) drawScore.textContent = scores.draw;
+
+  if (xLabel) {
+    xLabel.textContent =
+      mode === "online" && onlineSession.symbol === "O"
+        ? getOpponentLabel()
+        : ["ai", "online"].includes(mode)
+        ? "You"
+        : "Player X";
+  }
+
+  if (oLabel) {
+    oLabel.textContent =
+      mode === "online" && onlineSession.symbol === "O"
+        ? "You"
+        : getOpponentLabel();
+  }
+
+  if (turnDisplay) {
+    turnDisplay.textContent = getTurnText();
+  }
+
+  if (onlinePanel) {
+    onlinePanel.classList.toggle("active", mode === "online");
+  }
+
+  if (onlineOpponentLabel) {
+    onlineOpponentLabel.textContent = getOnlineStatus();
+  }
+
+  renderProgress();
 }
-
-function finishRound(winner) {
-  let rewardMessage = "";
-  progress.missionStats.rounds += 1;
-  if (mode === "ai") {
-    progress.aiRounds += 1;
-  }
-
-  if (winner === "X") {
-    if (mode === "ai") {
-      progress.humanAiWins += 1;
-      rewardMessage = claimBossReward();
-    } else if (mode === "online") {
-      addReward(onlineSession.roomCode ? 220 : 160, onlineSession.roomCode ? 260 : 180);
-      rewardMessage = onlineSession.roomCode
-        ? "Friend room win. Reward: +260 XP and +220 coins."
-        : `Online win vs ${getOpponentLabel()}. Reward: +180 XP and +160 coins.`;
-    } else {
-      addReward(90, 60);
-    }
-  } else if (winner === "draw") {
-    progress.missionStats.draws += ["ai", "online"].includes(mode) ? 1 : 0;
-    addReward(35, 35);
-  } else {
-    if (["ai", "online"].includes(mode)) {
-      progress.aiWins += 1;
-    }
-    addReward(15, 18);
-  }
 
   autoClaimCompletedMissions();
   saveProgress();
