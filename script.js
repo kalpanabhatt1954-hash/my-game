@@ -139,12 +139,12 @@ function render() {
     cell.setAttribute("aria-label", `${cellLabel(index)} ${value || "empty"}`);
   });
 
-  xScore.textContent = scores.X;
-  oScore.textContent = scores.O;
-  drawScore.textContent = scores.draw;
-  xLabel.textContent = mode === "online" && onlineSession.symbol === "O" ? getOpponentLabel() : ["ai", "online"].includes(mode) ? "You" : "Player X";
-  oLabel.textContent = mode === "online" && onlineSession.symbol === "O" ? "You" : getOpponentLabel();
-  turnDisplay.textContent = getTurnText();
+ if (xScore) xScore.textContent = scores.X;
+ if(oScore)oScore.textContent = scores.O;
+  if(drawScore)drawScore.textContent = scores.draw;
+  if(xLabel)xLabel.textContent = mode === "online" && onlineSession.symbol === "O" ? getOpponentLabel() : ["ai", "online"].includes(mode) ? "You" : "Player X";
+  if(oLabel)oLabel.textContent = mode === "online" && onlineSession.symbol === "O" ? "You" : getOpponentLabel();
+  if(turnDisplay)turnDisplay.textContent = getTurnText();
   onlinePanel.classList.toggle("active", mode === "online");
   onlineOpponentLabel.textContent = getOnlineStatus();
 
@@ -152,11 +152,11 @@ function render() {
 }
 
 function renderProgress() {
-  coinCount.textContent = progress.coins;
-  xpCount.textContent = progress.xp;
-  levelLabel.textContent = `${getLevel(progress.xp)}/100`;
-  missionReset.textContent = `Resets ${todayKey()}`;
-  bossPressure.textContent = `${Math.min(progress.aiRounds, 100)}/100`;
+  if(coinCount)coinCount.textContent = progress.coins;
+  if(xpCount)xpCount.textContent = progress.xp;
+  if(levelLable)levelLabel.textContent = `${getLevel(progress.xp)}/100`;
+  if(missionReset)missionReset.textContent = `Resets ${todayKey()}`;
+  if(bossPressure)bossPressure.textContent = `${Math.min(progress.aiRounds, 100)}/100`;
 
   if (progress.headmasterDefeated) {
     bossTitle.textContent = "Headmaster cleared";
