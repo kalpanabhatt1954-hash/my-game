@@ -802,9 +802,13 @@ function startAmbientCanvas() {
 cells.forEach((cell) => {
   cell.addEventListener("click", handleCellClick);
 });
-
+function safeListen(element, event, callback) {
+  if (element) {
+    element.addEventListener(event, callback);
+  }
+}
 if (nextRoundButton) {
-  nextRoundButton.addEventListener("click", () => {
+  safeListen(nextRoundButton, "click", () => 
     if (mode === "online" && onlineSession.roomId) {
       requestOnlineRound();
       return;
@@ -812,9 +816,13 @@ if (nextRoundButton) {
     startRound(true);
   });
 }
-
+function safeListen(element, event, callback) {
+  if (element) {
+    element.addEventListener(event, callback);
+  }
+}
 if (newGameButton) {
-  newGameButton.addEventListener("click", () => {
+  safeListen(newgamebutton, "click", () => {
     if (mode === "online" && onlineSession.roomId) {
       requestOnlineRound();
       return;
@@ -822,29 +830,53 @@ if (newGameButton) {
     startRound(false);
   });
 }
-
+function safeListen(element, event, callback) {
+  if (element) {
+    element.addEventListener(event, callback);
+  }
+}
 if (claimLoginButton) {
-  claimLoginButton.addEventListener("click", claimLoginReward);
+  safeListen(claimloginbutton, "click", () => {
 }
-
+function safeListen(element, event, callback) {
+  if (element) {
+    element.addEventListener(event, callback);
+  }
+}
 if (matchmakeButton) {
-  matchmakeButton.addEventListener("click", matchmakeOnline);
+  safeListen(matchmakebutton, "click", () => {
 }
-
+function safeListen(element, event, callback) {
+  if (element) {
+    element.addEventListener(event, callback);
+  }
+}
 if (createRoomButton) {
-  createRoomButton.addEventListener("click", createFriendRoom);
+ safeListen(createroombutton, "click", () => {
 }
-
+function safeListen(element, event, callback) {
+  if (element) {
+    element.addEventListener(event, callback);
+  }
+}
 if (joinRoomButton) {
-  joinRoomButton.addEventListener("click", joinFriendRoom);
+ safeListen(joinroombutton, "click", () => {
 }
-
+function safeListen(element, event, callback) {
+  if (element) {
+    element.addEventListener(event, callback);
+  }
+}
 if (playerNameInput) {
-  playerNameInput.addEventListener("change", getPlayerProfile);
+  safeListen(playernameinput, "click", () => {
 }
-
+function safeListen(element, event, callback) {
+  if (element) {
+    element.addEventListener(event, callback);
+  }
+}
 if (playerRegionInput) {
-  playerRegionInput.addEventListener("change", getPlayerProfile);
+ safeListen(playerregioninput, "click", () => {
 }
 
 modeButtons.forEach((button) => {
