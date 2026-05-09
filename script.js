@@ -519,13 +519,21 @@ function getOnlineStatus() {
 function isHttpApp() {
   return location.protocol === "http:" || location.protocol === "https:";
 }
-
 function loadPlayerProfile() {
   const saved = JSON.parse(localStorage.getItem("xo-nexus-profile") || "{}");
+
   const fallbackName = `Player${playerId.slice(0, 4).toUpperCase()}`;
-  const fallbackRegion = Intl.DateTimeFormat().resolvedOptions().timeZone || "Online";
-  playerNameInput.value = saved.name || fallbackName;
-  playerRegionInput.value = saved.region || fallbackRegion;
+
+  const fallbackRegion =
+    Intl.DateTimeFormat().resolvedOptions().timeZone || "Online";
+
+  if (playerNameInput) {
+    playerNameInput.value = saved.name || fallbackName;
+  }
+
+  if (playerRegionInput) {
+    playerRegionInput.value = saved.region || fallbackRegion;
+  }
 }
 
 function getPlayerProfile() {
